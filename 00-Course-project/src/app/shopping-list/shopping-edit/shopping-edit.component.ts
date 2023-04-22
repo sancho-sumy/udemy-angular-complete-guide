@@ -1,7 +1,5 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
   EventEmitter,
   Output,
 } from '@angular/core';
