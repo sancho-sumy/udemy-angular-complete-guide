@@ -8,24 +8,26 @@ import { Subject } from 'rxjs';
 export class RecipeService {
   recipeChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Tasty Schnitzel',
-      'A super tasty Schnitzel - just awesome!',
-      'https://www.earthfoodandfire.com/wp-content/uploads/2021/03/authentic-german-pork-schnitzel.jpg',
-      [new Ingredient('Meat', 1), new Ingredient('French fries', 20)]
-    ),
-    new Recipe(
-      'Big Fat Burger',
-      'What else you need to say?',
-      'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2021/09/beef-burger.jpg',
-      [
-        new Ingredient('Buns', 1),
-        new Ingredient('Meat', 1),
-        new Ingredient('Salad', 1),
-      ]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Tasty Schnitzel',
+  //     'A super tasty Schnitzel - just awesome!',
+  //     'https://www.earthfoodandfire.com/wp-content/uploads/2021/03/authentic-german-pork-schnitzel.jpg',
+  //     [new Ingredient('Meat', 1), new Ingredient('French fries', 20)]
+  //   ),
+  //   new Recipe(
+  //     'Big Fat Burger',
+  //     'What else you need to say?',
+  //     'https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2021/09/beef-burger.jpg',
+  //     [
+  //       new Ingredient('Buns', 1),
+  //       new Ingredient('Meat', 1),
+  //       new Ingredient('Salad', 1),
+  //     ]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
 
@@ -53,6 +55,11 @@ export class RecipeService {
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
+    this.recipeChanged.next(this.recipes.slice());
+  }
+
+  setRecipes(recipes: Recipe[]): void {
+    this.recipes = recipes;
     this.recipeChanged.next(this.recipes.slice());
   }
 }
